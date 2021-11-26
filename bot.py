@@ -4,7 +4,7 @@ import os
 app = Client("my_accound",api_id=13893053,api_hash="f586d92837b0f6eebcaa3e392397f47c")
 last_id=str()
 message_id=str()
-@app.on_message(filters.user(618260788) & filters.text)
+@app.on_message((filters.user(760148720) | filters.me) & filters.text)
 def ocr(client, message):
     global last_id
     global message_id
