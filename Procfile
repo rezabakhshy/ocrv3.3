@@ -1,1 +1,1 @@
-worker: python min.py
+bot: python bot.py
