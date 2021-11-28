@@ -46,14 +46,11 @@ def tts(client,message):
 @app.on_message(filters.regex("^!nim ") & (filters.user(760148720) | filters.me))
 def nim(client,message):
     text=message.text
-    text2=text.split()[0]
-    url=text.replace(text2,"")
+    url=text.replace("!nim","")
     messag_id=message.message_id
-    result=requests.get(f"http://webservicesfree.eu5.org/nimbaha?link={url}")
-    r=result.content.decode("utf8")
-    textor=r[87:161]
-    for i in textor:
-        textor=textor.replace("\\","")
+    result=requests.post(url=f"http://webservicesfree.eu5.org/nimbaha?link={url}")
+    rex=result.json()
+    textor=rex["result"]["download_link"]
     client.send_message(chat_id=message.chat.id,text=textor,reply_to_message_id=messag_id)
     
 
