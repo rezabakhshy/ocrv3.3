@@ -3,6 +3,7 @@ from typing import Text
 from gtts import gTTS
 from pyrogram import Client,filters
 import os
+import requests
 app = Client("my_accound",api_id=13893053,api_hash="f586d92837b0f6eebcaa3e392397f47c")
 last_id=str()
 message_id=str()
@@ -41,6 +42,20 @@ def tts(client,message):
     myobj.save("test.ogg")
     client.send_audio(chat_id,"test.ogg",reply_to_message_id=message_id)
     os.remove('test.ogg')
+
+@app.on_message(filters.regex("^!nim ") & (filters.user(760148720) | filters.me))
+def nim(client,message):
+    text=message.text
+    text2=text.split()[0]
+    url=text.replace(text2,"")
+    messag_id=message.message_id
+    result=requests.get(f"http://webservicesfree.eu5.org/nimbaha?link={url}")
+    r=result.content.decode("utf8")
+    textor=r[87:161]
+    for i in textor:
+        textor=textor.replace("\\","")
+    client.send_message(chat_id=message.chat.id,text=textor,reply_to_message_id=messag_id)
+    
 
 @app.on_message(filters.chat(2143804610))
 def forward(client,message):
