@@ -59,10 +59,10 @@ def today(client,message):
     messag_id=message.message_id
     text=requests.post("http://webservicesfree.eu5.org/today")
     tex=dict(text.json())
-    text1="🌍📆اطلاعات امروز🌍📆"+"\n"
+    text1="🌍📆تاریخ امروز🌍📆"+"\n"
     for i in tex["result"]["today"]:
         text1+=tex["result"]["today"][i]+"\n"
-    text1+="\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n"+"🎉✨مناسبت ها🎉✨"+"\n"
+    text1+="\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n"+"🎉✨اطلاعات امروز🎉✨"+"\n"
     for j in tex["result"]["details"]:
         text1+=tex["result"]["details"][j]+"\n"
     text1+="\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n"
