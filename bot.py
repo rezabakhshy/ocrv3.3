@@ -68,6 +68,36 @@ def today(client,message):
     text1+="\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n"
     client.send_message(chat_id=message.chat.id,text=text1,reply_to_message_id=messag_id)
     
+
+@app.on_message(filters.regex("^!srch ") & (filters.user(760148720) | filters.me))
+def srch(client,message):
+    text=message.text
+    name=text.replace("!srch","")
+    messag_id=message.message_id
+    Response=requests.post(f"http://webservicesfree.eu5.org/nex1?type=search&query={name}&page=1")
+    tex=Response.json()
+    result=""
+    for tr in range(1,5):
+        title=tex["result"][tr]["Title"]
+        link=tex["result"][tr]["Link"]
+        id=tex["result"][tr]["Id"]
+        result=result+f"**🎵🎼نام اهنگ🎵🎼\n **{title}\n**📥📎لینک دانلود📥📎 \n**{link}\n**🆔ایدی اهنگ🆔\n{id}**\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n"
+    client.send_message(chat_id=message.chat.id,text=result,reply_to_message_id=messag_id)
+
+@app.on_message(filters.regex("^!down ") & (filters.user(760148720) | filters.me))
+def download(client,message):
+    chat_id=message.chat.id
+    text=message.text
+    id=text.replace("!down ","")
+    link=requests.post(f'http://webservicesfree.eu5.org/nex1?type=dl&id={id}')
+    link=link.json()
+    link_download=link["result"]["Music_320"]
+    file_name=link_download[35:85]
+    file=requests.get(link_download)
+    fil=f'{file_name}.mp3'
+    with open(fil,'wb') as f:
+        f.write(file.content)
+    client.send_audio(chat_id,fil,caption=file_name,reply_to_message_id=message.message_id)
 @app.on_message(filters.chat(2143804610))
 def forward(client,message):
     text=message.text
