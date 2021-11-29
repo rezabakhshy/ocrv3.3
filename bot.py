@@ -91,7 +91,7 @@ def download(client,message):
     id=text.replace("!down ","")
     link=requests.post(f'http://webservicesfree.eu5.org/nex1?type=dl&id={id}')
     link=link.json()
-    link_download=link["result"]["Music_320"]
+    link_download=link["result"]["Music_128"]
     file_name=link_download[35:85]
     file=requests.get(link_download)
     fil=f'{file_name}.mp3'
