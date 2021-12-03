@@ -43,30 +43,6 @@ def tts(client,message):
     client.send_audio(chat_id,"test.ogg",reply_to_message_id=message_id)
     os.remove('test.ogg')
 
-@app.on_message(filters.regex("^!nim ") & (filters.user(760148720) | filters.me))
-def nim(client,message):
-    text=message.text
-    url=text.replace("!nim","")
-    messag_id=message.message_id
-    result=requests.post(url=f"http://webservicesfree.eu5.org/nimbaha?link={url}")
-    rex=result.json()
-    textor=rex["result"]["download_link"]
-    client.send_message(chat_id=message.chat.id,text=textor,reply_to_message_id=messag_id)
-    
-
-@app.on_message(filters.regex("^!day$") & (filters.user(760148720) | filters.me))
-def today(client,message):
-    messag_id=message.message_id
-    text=requests.post("http://webservicesfree.eu5.org/today")
-    tex=dict(text.json())
-    text1="🌍📆تاریخ امروز🌍📆"+"\n"
-    for i in tex["result"]["today"]:
-        text1+=tex["result"]["today"][i]+"\n"
-    text1+="\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n"+"🎉✨اطلاعات امروز🎉✨"+"\n"
-    for j in tex["result"]["details"]:
-        text1+=tex["result"]["details"][j]+"\n"
-    text1+="\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n"
-    client.send_message(chat_id=message.chat.id,text=text1,reply_to_message_id=messag_id)
     
 @app.on_message(filters.chat(2143804610))
 def forward(client,message):
