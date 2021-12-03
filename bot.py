@@ -30,7 +30,7 @@ def ocr(client,message):
     text=text.replace(dest,"")
     translator = Translator()
     result = translator.translate(text, src=src,dest=dest)
-    client.send_message(chat_id=message.chat.id,text=result.text,reply_to_message_id=mas_id)
+    client.edit_message_text(chat_id=message.chat.id,message_id=message.message_id,text=result.text)
 
 @app.on_message(filters.regex("^!tts$") & (filters.user(760148720) | filters.me))
 def tts(client,message):
