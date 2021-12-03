@@ -18,7 +18,7 @@ def ocr(client,message):
     client.send_photo("ocr_prov_bot","downloads/test.jpg")
     os.remove("downloads/test.jpg")
 
-@app.on_message(filters.regex("^!trans") & (filters.user(760148720) | filters.me))
+@app.on_message(filters.regex("^!trans ") & (filters.user(760148720) | filters.me))
 def ocr(client,message):
     text=message.text 
     text2=text.split()[0]
